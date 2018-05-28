@@ -1,0 +1,19 @@
+/* ---------------  APP GENERAL RULES  ----------------- */
+.App {
+  font-family: georgia,"times new roman",times,serif;
+  font-size: 13px;
+  background-color: whitesmoke;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Goudy Bookletter 1911', serif;
+}
+
+.showLoader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, .7)
+}
