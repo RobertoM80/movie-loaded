@@ -1,0 +1,18 @@
+{
+  "main.css": "static/css/main.03b7fd04.css",
+  "main.css.map": "static/css/main.03b7fd04.css.map",
+  "main.js": "static/js/main.fc89221e.js",
+  "main.js.map": "static/js/main.fc89221e.js.map",
+  "static/media/celsius.svg": "static/media/celsius.a628c338.svg",
+  "static/media/clearDay.svg": "static/media/clearDay.bf0396a8.svg",
+  "static/media/clearNight.svg": "static/media/clearNight.10d8821e.svg",
+  "static/media/cloudy.svg": "static/media/cloudy.253d2e16.svg",
+  "static/media/fog.svg": "static/media/fog.c188ef12.svg",
+  "static/media/heartLoader.svg": "static/media/heartLoader.4d3085a9.svg",
+  "static/media/partlyCloudyDay.svg": "static/media/partlyCloudyDay.f9cf7a09.svg",
+  "static/media/partlyCloudyNight.svg": "static/media/partlyCloudyNight.f164d00a.svg",
+  "static/media/rain.svg": "static/media/rain.608592ee.svg",
+  "static/media/sleet.svg": "static/media/sleet.f18cc376.svg",
+  "static/media/snow.svg": "static/media/snow.ed449e2e.svg",
+  "static/media/wind.svg": "static/media/wind.c557daa6.svg"
+}
