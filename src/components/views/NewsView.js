@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import ChuckNorris from '../shared/ChuckNorris';
-import '../../css/NewsView.css';
 import ErrorBoundary from '../shared/ErrorBoundary';
+import ChuckNorris from '../shared/ChuckNorris';
+
+import '../../css/NewsView.css';
 
 class NewsView extends Component {
+
     render() {
         return (
             <ErrorBoundary place='News'>

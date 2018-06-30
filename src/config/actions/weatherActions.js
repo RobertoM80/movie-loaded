@@ -6,10 +6,11 @@ export const fetchWeather = () => dispatch => {
     const storePosition = (position) => {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
+        const key = '38cd89e1c279727b5a599e5804a22333';
 
-        dispatch({ type: IS_LOADING_WEATHER, payload: true });
+        dispatch({ type: IS_LOADING_WEATHER, payload: false });
 
-        axios.get(`https://api.darksky.net/forecast/38cd89e1c279727b5a599e5804a22333/${latitude},${longitude}`)
+        axios.get(`https://movie-loaded.herokuapp.com/api?api=weather&key=${key}&latitude=${latitude}&longitude=${longitude}`)
             .then(result => result)
             .then(weather => dispatch({
                 type: FETCH_WEATHER,
@@ -20,6 +21,10 @@ export const fetchWeather = () => dispatch => {
                 }
             }))
             .then(() => dispatch({ type: IS_LOADING_WEATHER, payload: false }))
+            .catch((err) => {
+                console.error(err);
+                dispatch({ type: IS_LOADING_WEATHER, payload: false })
+            })
     };
 
     const getLocation = () => {

@@ -64,9 +64,9 @@ class WeatherInfo extends Component {
             <p className="weather align-self-center m-0">
                 <img
                     className="weather-icon"
-                    src={this.handleWeatherIcon()}
-                    alt={this.props.icon}
-                /> {this.handleWeatherData()}
+                    src={ this.handleWeatherIcon() }
+                    alt={ this.props.icon }
+                /> { this.handleWeatherData() }
             </p>
         );
     }

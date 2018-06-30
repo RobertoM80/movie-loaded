@@ -1,7 +1,9 @@
-import { IS_LOADING_WEATHER } from '../actions/types';
+import { IS_LOADING_WEATHER, IS_LOADING_CHUCK, IS_LOADING_MOVIE } from '../actions/types';
 
 const initialState = {
-    isLoadingWeather: true
+    isLoadingWeather: false,
+    isLoadingChuck: false,
+    isLoadingMovie: false
 }
 
 const isLoadingReducer = (state = initialState, action) => {
@@ -10,6 +12,16 @@ const isLoadingReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoadingWeather: action.payload
+            }
+        case IS_LOADING_CHUCK:
+            return {
+                ...state,
+                isLoadingChuck: action.payload
+            }
+        case IS_LOADING_MOVIE:
+            return {
+                ...state,
+                isLoadingMovie: action.payload
             }
 
         default:
