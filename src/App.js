@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import NewsView from './components/views/NewsView';
 import LatestView from './components/views/LatestView';
 import PopularView from './components/views/PopularView';
+import movieDetailsView from './components/views/movieDetailsView';
 import './css/App.css';
 
 class App extends Component {
@@ -38,6 +39,8 @@ class App extends Component {
             } } />
 
             <Route path="/popular" component={ PopularView } />
+
+            <Route path="/movie/details/:id" component={ movieDetailsView } />
 
             <Route render={ () => {
               return <h1 className="text-center">404 - Page Not Found!</h1>
