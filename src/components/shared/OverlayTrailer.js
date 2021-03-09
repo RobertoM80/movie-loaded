@@ -12,30 +12,18 @@ function OverlayTrailer() {
     currentYoutubeTrailerMovieId,
   } = useMovies();
 
-  function iframe(html) {
+  function iframe() {
+    const html = `
+    <iframe 
+      style="width:45vw;height:25vw" 
+      src="https://www.youtube.com/embed/${currentYoutubeTrailerMovieId}" 
+      frameborder="0" 
+      allow="autoplay; 
+      encrypted-media"
+      allowfullscreen
+    ></iframe>`;
     return { __html: html };
   }
-
-  useEffect(() => {
-    console.log(
-      "=========",
-      movies,
-      active,
-      activeMovie,
-      currentYoutubeTrailerMovieTitle,
-      currentYoutubeTrailerMovieId,
-      imageUrlBase,
-      imageSizes
-    );
-  }, [
-    movies,
-    active,
-    activeMovie,
-    currentYoutubeTrailerMovieTitle,
-    currentYoutubeTrailerMovieId,
-    imageUrlBase,
-    imageSizes,
-  ]);
 
   return (
     <div className="container-fluid">
@@ -59,11 +47,7 @@ function OverlayTrailer() {
           )}
         </div>
         <div className="col-sm-7">
-          <div
-            dangerouslySetInnerHTML={iframe(
-              `<iframe style="width:45vw;height:25vw" src="https://www.youtube.com/embed/${currentYoutubeTrailerMovieId}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`
-            )}
-          />
+          <div dangerouslySetInnerHTML={iframe()} />
         </div>
       </div>
     </div>

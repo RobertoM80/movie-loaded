@@ -21,7 +21,6 @@ function useMovies() {
     let activeMovie = movies.filter(
       (movie) => movie.title === currentYoutubeTrailerMovieTitle
     )[0];
-    console.log("?????", activeMovie, currentYoutubeTrailerMovieTitle);
     setActiveMovie(activeMovie);
   }, [currentYoutubeTrailerMovieTitle]);
 
