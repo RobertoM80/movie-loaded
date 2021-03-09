@@ -6,7 +6,7 @@
   "dependencies": {
     "@types/source-map": "^0.5.2",
     "axios": "^0.18.0",
-    "bootstrap": "^4.1.1",
+    "bootstrap": "^4.3.1",
     "eslint-plugin-react": "^7.22.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
