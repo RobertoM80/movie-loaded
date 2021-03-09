@@ -1,19 +1,26 @@
 {
-  "main.css": "static/css/main.de25d8ed.css",
-  "main.css.map": "static/css/main.de25d8ed.css.map",
-  "main.js": "static/js/main.51fcb34d.js",
-  "main.js.map": "static/js/main.51fcb34d.js.map",
-  "static/media/celsius.svg": "static/media/celsius.a628c338.svg",
-  "static/media/clearDay.svg": "static/media/clearDay.bf0396a8.svg",
-  "static/media/clearNight.svg": "static/media/clearNight.10d8821e.svg",
-  "static/media/close.png": "static/media/close.f5f4a3e9.png",
-  "static/media/cloudy.svg": "static/media/cloudy.253d2e16.svg",
-  "static/media/fog.svg": "static/media/fog.c188ef12.svg",
-  "static/media/heartLoader.svg": "static/media/heartLoader.4d3085a9.svg",
-  "static/media/partlyCloudyDay.svg": "static/media/partlyCloudyDay.f9cf7a09.svg",
-  "static/media/partlyCloudyNight.svg": "static/media/partlyCloudyNight.f164d00a.svg",
-  "static/media/rain.svg": "static/media/rain.608592ee.svg",
-  "static/media/sleet.svg": "static/media/sleet.f18cc376.svg",
-  "static/media/snow.svg": "static/media/snow.ed449e2e.svg",
-  "static/media/wind.svg": "static/media/wind.c557daa6.svg"
+  "files": {
+    "main.css": "/movie-loaded/static/css/main.e6d8be76.chunk.css",
+    "main.js": "/movie-loaded/static/js/main.04f409fd.chunk.js",
+    "main.js.map": "/movie-loaded/static/js/main.04f409fd.chunk.js.map",
+    "runtime-main.js": "/movie-loaded/static/js/runtime-main.dbb03893.js",
+    "runtime-main.js.map": "/movie-loaded/static/js/runtime-main.dbb03893.js.map",
+    "static/css/2.ffdf1766.chunk.css": "/movie-loaded/static/css/2.ffdf1766.chunk.css",
+    "static/js/2.e12ca971.chunk.js": "/movie-loaded/static/js/2.e12ca971.chunk.js",
+    "static/js/2.e12ca971.chunk.js.map": "/movie-loaded/static/js/2.e12ca971.chunk.js.map",
+    "index.html": "/movie-loaded/index.html",
+    "static/css/2.ffdf1766.chunk.css.map": "/movie-loaded/static/css/2.ffdf1766.chunk.css.map",
+    "static/css/main.e6d8be76.chunk.css.map": "/movie-loaded/static/css/main.e6d8be76.chunk.css.map",
+    "static/js/2.e12ca971.chunk.js.LICENSE.txt": "/movie-loaded/static/js/2.e12ca971.chunk.js.LICENSE.txt",
+    "static/media/close.6e9b2c81.png": "/movie-loaded/static/media/close.6e9b2c81.png",
+    "static/media/heartLoader.46fd28c5.svg": "/movie-loaded/static/media/heartLoader.46fd28c5.svg",
+    "static/media/svgSprite.d08225b1.svg": "/movie-loaded/static/media/svgSprite.d08225b1.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.dbb03893.js",
+    "static/css/2.ffdf1766.chunk.css",
+    "static/js/2.e12ca971.chunk.js",
+    "static/css/main.e6d8be76.chunk.css",
+    "static/js/main.04f409fd.chunk.js"
+  ]
 }
