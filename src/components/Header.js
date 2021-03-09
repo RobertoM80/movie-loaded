@@ -1,24 +1,18 @@
-import React, { Component } from 'react';
-import Infos from './shared/Infos';
-import Title from './Title';
-import MainNav from './MainNav';
+import Infos from "components/shared/Infos";
+import Title from "components/Title";
+import MainNav from "components/MainNav";
+import "css/Header.css";
 
-import '../css/Header.css';
+function Header() {
+  return (
+    <header>
+      <Title />
 
-class Header extends Component {
-    render() {
-        return (
-            <header>
+      <Infos />
 
-                <Title />
-
-                <Infos />
-
-                <MainNav />
-
-            </header>
-        );
-    }
+      <MainNav />
+    </header>
+  );
 }
 
 export default Header;

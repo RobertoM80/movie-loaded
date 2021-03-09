@@ -1,79 +1,67 @@
-import React, { Component } from 'react';
-import { HashRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { fetch_movie_best_2018, fetch_movie_highest_rated, fetch_movie_most_popular } from './config/actions/movieActions';
-import Header from './components/Header';
-import Loader from './components/shared/Loader';
-import Footer from './components/Footer';
-import NewsView from './components/views/NewsView';
-import LatestView from './components/views/LatestView';
-import PopularView from './components/views/PopularView';
-import movieDetailsView from './components/views/movieDetailsView';
-import './css/App.css';
+import { useCallback, useEffect } from "react";
+import { Route, Switch, Redirect, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchMovies, updateActive } from "config/actions/movieActions";
+import Header from "components/Header";
+import Loader from "components/shared/Loader";
+import Footer from "components/Footer";
+import AllMoviesView from "components/views/AllMoviesView";
+import MovieDetailsView from "components/views/MovieDetailsView";
+import "css/App.css";
 
-class App extends Component {
+function App() {
+  const moviesStatus = useSelector((state) => state.movies.status);
+  const isLoading = ["pending", "idle"].includes(moviesStatus);
+  const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
-  componentDidMount() {
-    this.props.fetch_movie_most_popular();
-  }
+  useEffect(() => {
+    try {
+      dispatch(fetchMovies());
+    } catch (error) {
+      console.info(error);
+    }
+  }, []);
 
-  render() {
-    return (
+  useEffect(() => {
+    const view = pathname.substr(1);
+    dispatch(updateActive(view));
+  }, [pathname]);
 
-      <Router hashType="slash">
+  return (
+    <div className="App container-fluid">
+      <Loader loading={isLoading} />
 
-        <div className="App container-fluid">
+      <Header></Header>
 
-          <Loader loading={ this.props.isLoading } />
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => {
+            return <Redirect to="/popular" />;
+          }}
+        />
 
-          <Header></Header>
+        <Route
+          path={["/popular", "/rated", "/upcoming"]}
+          component={AllMoviesView}
+        />
 
-          <Switch>
+        <Route path="/movie/details/:id" component={MovieDetailsView} />
 
-            <Route exact path="/" render={ () => {
-              return <Redirect to='/popular' />
-            } } />
+        <Route
+          render={() => {
+            return <h1 className="text-center">404 - Page Not Found!</h1>;
+          }}
+        />
+      </Switch>
 
-            <Route path="/latest" render={ () => {
-              return <Redirect to='/popular' />
-            } } />
-
-            <Route path="/popular" component={ PopularView } />
-
-            <Route path="/movie/details/:id" component={ movieDetailsView } />
-
-            <Route render={ () => {
-              return <h1 className="text-center">404 - Page Not Found!</h1>
-            } } />
-
-          </Switch>
-
-          <Footer />
-
-        </div>
-
-      </Router>
-
-    );
-  }
+      <Footer />
+    </div>
+  );
 }
 
-const mapStateToProp = state => {
-  let loadingState = false;
-  // console.log(state)
-  ((state.isLoading.isLoadingWeather) ||
-    (state.isLoading.isLoadingChuck) ||
-    (state.isLoading.isLoadingMovie)) ?
-    loadingState = true :
-    loadingState = false; // we will check all fetchings
+export default App;
 
-  return {
-    isLoading: loadingState
-  }
-}
-
-export default connect(
-  mapStateToProp,
-  { fetch_movie_best_2018, fetch_movie_highest_rated, fetch_movie_most_popular }
-)(App);
-
+//       {/* <Route path="/movie/details/:id" component={movieDetailsView} /> */}

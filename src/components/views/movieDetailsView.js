@@ -1,18 +1,5 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-
-class movieDetailsView extends Component {
-    render() {
-        return (
-            <div>
-                { this.props.match.params.id }
-            </div>
-        );
-    }
+function MovieDetailsView({ match }) {
+  return <div>{match.params.id} - UNDER CONSTRUCTION .... </div>;
 }
 
-movieDetailsView.propTypes = {
-
-};
-
-export default movieDetailsView;
+export default MovieDetailsView;

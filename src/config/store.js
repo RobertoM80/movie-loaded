@@ -1,29 +1,27 @@
 import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 import thunk from "redux-thunk";
-import weatherReducer from "./reducers/weatherReducer";
-import isLoadingReducer from "./reducers/isLoadingReducer";
-import chuckNorrisReducer from "./reducers/chuckNorrisReducer";
-import moviesReducer from "./reducers/moviesReducer";
-import overlayReducer from "./reducers/overlayReducer";
+import chuckNorrisReducer from "config/reducers/chuckNorrisReducer";
+import moviesReducer from "config/reducers/moviesReducer";
+import overlayReducer from "config/reducers/overlayReducer";
+import movieTrailerReducer from "config/reducers/movieTrailerReducer";
 
 const initialState = {};
 
 const middleware = [thunk];
 
 const rootReducer = combineReducers({
-  weather: weatherReducer,
-  isLoading: isLoadingReducer,
   chuckNorris: chuckNorrisReducer,
   movies: moviesReducer,
-  overlay: overlayReducer
+  trailer: movieTrailerReducer,
+  overlay: overlayReducer,
 });
 
 const store = createStore(
   rootReducer,
   initialState,
   compose(
-    applyMiddleware(...middleware)
-    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    applyMiddleware(...middleware),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
 

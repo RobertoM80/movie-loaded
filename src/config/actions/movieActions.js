@@ -1,98 +1,110 @@
-import {
-    FETCH_BEST_MOVIES_2018,
-    FETCH_HIGHEST_RATED_MOVIES,
-    FETCH_MOST_POPULAR_MOVIES,
-    FETCH_YOUTUBE_MOVIE,
-    IS_LOADING_MOVIE
-} from './types';
-import axios from 'axios';
-
-const base_url_tmdb = 'https://api.themoviedb.org/3/';
-const tmdb_api_key = '&api_key=96e63474e758f0f3c342b883c6991953';
-const best_2018 = 'discover/movie?primary_release_year=2018&sort_by=vote_average.desc';
-const highest_rated = 'discover/movie/?certification_country=US&certification=R&sort_by=vote_average.desc';
-const most_popular = 'discover/movie?sort_by=popularity.desc';
-const configurationUrl = 'https://api.themoviedb.org/3/configuration?api_key=96e63474e758f0f3c342b883c6991953';
-const youtube_key = 'AIzaSyB7yWgU5qX43q3t-4wB422S4IB9eOxGLwc';
-const base_url_youtube = 'https://www.googleapis.com/youtube/v3/';
+import * as types from "./types";
+import axios from "axios";
+const thisYear = new Date().getFullYear();
+const baseUrlTmdb = "https://api.themoviedb.org/3/";
+// only for example code don't store api keys in React.
+// Not even in env vars. Have a backend instead that do that.
+const tmbdKey = "96e63474e758f0f3c342b883c6991953";
+const youtubeKey = "AIzaSyDsTb3fhXB01D5yjfjFooWgNnNxDlrjWpo";
+const tmdbApiKey = `&api_key=${tmbdKey}`;
+const best_2018 = `discover/movie?primary_release_year=${thisYear}&sort_by=vote_average.desc`;
+const upcoming = `movie/upcoming?api_key=${tmbdKey}&language=en-US&page=1`;
+const highestRated = `movie/top_rated?api_key=${tmbdKey}&language=en-US&page=1`;
+const mostPopular = "discover/movie?sort_by=popularity.desc";
+const configurationUrl = `https://api.themoviedb.org/3/configuration?api_key=${tmbdKey}`;
+const baseUrlYoutube = "https://www.googleapis.com/youtube/v3/";
 export let imageUrlBase;
-export let image_sizes;
+export let imageSizes;
 
-const configurationData = axios.get(configurationUrl)
-    .then(response => response.data)
-    .then(result => {
-        imageUrlBase = result.images.secure_base_url;
-        image_sizes = result.images.poster_sizes;
-
-        console.log('AAAAA', result)
-        return result
-    })
+const configurationData = axios
+  .get(configurationUrl)
+  .then((response) => response.data)
+  .then((result) => {
+    imageUrlBase = result.images.secure_base_url;
+    imageSizes = result.images.poster_sizes;
+    return result;
+  });
 
 // configurationData;
 
-export const fetch_movie_best_2018 = () => dispatch => {
+export const fetchMovies = (type) => async (dispatch) => {
+  try {
+    const movieUrl = {
+      upcoming: upcoming,
+      rated: highestRated,
+      popular: mostPopular,
+    };
 
-    dispatch({ type: IS_LOADING_MOVIE, payload: true })
+    dispatch({ type: types.FETCH_MOVIE_START });
+    let movies;
+    movies = Object.values(movieUrl).map((url) => {
+      return new Promise(async (resolve, reject) => {
+        const {
+          data: { results: movies },
+        } = await axios.get(baseUrlTmdb + url + tmdbApiKey);
 
-    axios.get(base_url_tmdb + best_2018 + tmdb_api_key)
-        .then(response => response.data.results)
-        .then(result => dispatch({
-            type: FETCH_BEST_MOVIES_2018,
-            payload: {
-                best_movies_2018: result
-            }
-        }))
-        .then(() => dispatch({ type: IS_LOADING_MOVIE, payload: false }))
+        resolve({
+          ...movies,
+          type: Object.keys(movieUrl).find((k) => movieUrl[k] === url),
+        });
+      });
+    });
 
-}
+    const allMovies = await Promise.allSettled(movies);
 
-export const fetch_movie_highest_rated = () => dispatch => {
+    allMovies.map((promise) => {
+      const isFullfilled = promise.status === "fulfilled";
+      const type = promise.value.type;
+      const movies = Object.values(promise.value).filter(
+        (value) => typeof value != "string"
+      );
 
-    dispatch({ type: IS_LOADING_MOVIE, payload: true })
+      if (isFullfilled) {
+        dispatch({
+          type: types.FETCH_MOVIE_SUCCESS,
+          payload: { type, movies },
+        });
+      } else {
+        dispatch({
+          type: types.FETCH_MOVIE_FAILURE,
+          payload: { type, error: `Impossible to retreive ${type} movies` },
+        });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    dispatch({
+      type: types.FETCH_MOVIE_FAILURE,
+      payload: { type: null, error },
+    });
+  }
+};
 
-    axios.get(base_url_tmdb + highest_rated + tmdb_api_key)
-        .then(response => response.data.results)
-        .then(result => dispatch({
-            type: FETCH_HIGHEST_RATED_MOVIES,
-            payload: {
-                highest_rated_movies: result
-            }
-        }))
-        .then(() => dispatch({ type: IS_LOADING_MOVIE, payload: false }))
+export const fetchYoutubeTrailer = (movieTitle) => async (dispatch) => {
+  try {
+    dispatch({ type: types.FETCH_YOUTUBE_MOVIE_START, payload: true });
 
-}
+    const response = await axios.get(
+      `${baseUrlYoutube}search?q=${movieTitle} trailer official&maxResults=1&part=snippet&key=${youtubeKey}`
+    );
 
-export const fetch_movie_most_popular = () => dispatch => {
+    const { videoId } = response.data.items[0].id;
 
-    dispatch({ type: IS_LOADING_MOVIE, payload: true })
+    dispatch({
+      type: types.FETCH_YOUTUBE_MOVIE_SUCCESS,
+      payload: {
+        currentYoutubeTrailerMovieId: videoId,
+        currentYoutubeTrailerMovieTitle: movieTitle,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: types.FETCH_YOUTUBE_MOVIE_FAILURE,
+      payload: { type: null, error },
+    });
+  }
+};
 
-    axios.get(base_url_tmdb + most_popular + tmdb_api_key)
-        .then(response => response.data.results)
-        // .then(result => console.log(result))
-        .then(result => dispatch({
-            type: FETCH_MOST_POPULAR_MOVIES,
-            payload: {
-                most_popular_movies: result
-            }
-        }))
-        .then(() => dispatch({ type: IS_LOADING_MOVIE, payload: false }))
-        .catch((error) => alert(error))
-
-}
-
-export const fetch_youtube_trailer = (movie_title) => dispatch => {
-
-    dispatch({ type: FETCH_YOUTUBE_MOVIE, payload: true })
-
-    axios.get(`${base_url_youtube}search?q=${movie_title} trailer official&maxResults=25&part=snippet&key=${youtube_key}`)
-        // .then(result => console.log('------>', result.data.items[0].id.videoId))
-        .then(response => response.data.items[0].id.videoId)
-        .then(result => dispatch({
-            type: FETCH_YOUTUBE_MOVIE,
-            payload: {
-                current_youtube_trailer_movie_id: result,
-                current_youtube_trailer_movie_title: movie_title
-            }
-        }))
-        .then(() => dispatch({ type: IS_LOADING_MOVIE, payload: false }))
-}
+export const updateActive = (view) => (dispatch) => {
+  dispatch({ type: types.UPDATE_VIEW, payload: { view } });
+};

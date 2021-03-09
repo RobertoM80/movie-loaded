@@ -1,37 +1,15 @@
-import React, { Component } from 'react';
-import MainNavLinks from './MainNavLinks';
-import SearchBar from './shared/SearchBar';
-import '../css/MainNav.css';
+import MainNavLinks from "components/MainNavLinks";
+import SearchBar from "components/shared/SearchBar";
+import "css/MainNav.css";
 
-class MainNav extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isOpen: false
-        };
+function MainNav() {
+  return (
+    <div className="navbar-container py-1 d-flex flex-row justify-content-between">
+      <MainNavLinks />
 
-        this.toggle = this.toggle.bind(this);
-    }
-
-    toggle() {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
-    }
-
-    render() {
-        return (
-            <div className="navbar-container py-1 d-flex flex-row justify-content-between">
-
-                <MainNavLinks />
-
-                {/* <SearchBar /> */ }
-
-
-            </div>
-
-        );
-    }
+      {/* <SearchBar /> */}
+    </div>
+  );
 }
 
 export default MainNav;
