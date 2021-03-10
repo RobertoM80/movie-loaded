@@ -109,7 +109,7 @@ function WeatherInfosProvider(props) {
     }
   }
 
-  const weatherIcon = `${sprite}#${icon || "clear-day"}`;
+  const weatherIcon = sprite + `#${icon || "clear-day"}`;
   const infos = { display, weatherIcon, status };
 
   return <WeatherInfosContext.Provider value={infos} {...props} />;
