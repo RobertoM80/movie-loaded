@@ -10,7 +10,7 @@ import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename="/movie-loaded">
+    <BrowserRouter hashType="slash" basename="/movie-loaded">
       <App />
     </BrowserRouter>
   </Provider>,
